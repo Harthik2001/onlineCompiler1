@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
       <header className="bg-gradient-to-r from-indigo-500 to-purple-600 p-3 text-white flex justify-between items-center shadow-lg">
         <div className='flex items-center'>
           <img src={logo} alt="Logo" className="h-10 w-10 mr-3" />
-          <Link to="/" className="text-2xl font-bold tracking-wide hover:text-gray-300 transition">Online Compiler</Link>
+          <Link to="/" className="text-2xl font-bold tracking-wide hover:text-gray-300 transition">CodeCraft</Link>
         </div>
         <nav className="flex items-center space-x-5">
           <Link to="/history" className="hover:text-gray-300 transition">History</Link>

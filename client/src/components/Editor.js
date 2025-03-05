@@ -151,8 +151,11 @@ const Editor = () => {
             <select
               value={languageId}
               onChange={(e) => setLanguageId(parseInt(e.target.value))}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border rounded-md bg-white text-black dark:bg-gray-900 dark:text-white"
             >
+              <option value="" disabled hidden>
+                Select Language
+              </option>
               <option value={71}>Python</option>
               <option value={50}>C</option>
               <option value={54}>C++</option>
@@ -160,10 +163,11 @@ const Editor = () => {
               <option value={60}>Go</option>
             </select>
 
+
             <label className="block font-semibold mt-3">Code:</label>
             <CodeMirror
               value={sourceCode}
-              height="400px"
+              height="600px"
               theme={theme === "dark" ? githubDark : githubLight} // Apply theme dynamically
               extensions={[getLanguage(languageId)]} // Apply language syntax
               onChange={(value) => setSourceCode(value)}
@@ -177,9 +181,10 @@ const Editor = () => {
             <textarea
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
-              className="w-full h-20 p-2 border rounded-md font-mono"
-              placeholder="Enter input here..."
+              className="w-full h-20 p-2 border rounded-md font-mono bg-white text-black dark:bg-gray-900 dark:text-white"
+              placeholder="Enter input here...(if there is multi line input, separate by newline)"
             />
+
 
             <div className="flex-1 mt-3 overflow-auto border p-3 rounded-lg bg-gray-100 dark:bg-gray-800 h-96">
               <h3 className="font-semibold">Output/Errors:</h3>
