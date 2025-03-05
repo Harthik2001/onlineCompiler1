@@ -2,7 +2,6 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { ThemeContext } from '../context/ThemeContext';
 import logo from '../assets/logo.png';
 
 const Layout = ({ children }) => {
@@ -20,21 +19,18 @@ const Layout = ({ children }) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200">
-      <header className="bg-gradient-to-r from-blue-600 to-blue-700 p-4 text-white flex justify-between items-center shadow-md">
+      <header className="bg-gradient-to-r from-indigo-500 to-purple-600 p-3 text-white flex justify-between items-center shadow-lg">
         <div className='flex items-center'>
-            <img src={logo} alt="Logo" className="h-8 w-8 mr-2" />
-            <Link to="/" className="text-xl font-semibold hover:text-blue-200 transition-colors duration-200">Online Compiler</Link>
+          <img src={logo} alt="Logo" className="h-10 w-10 mr-3" />
+          <Link to="/" className="text-2xl font-bold tracking-wide hover:text-gray-300 transition">Online Compiler</Link>
         </div>
-        <nav className="flex items-center space-x-4">
-          <Link to="/profile" className="hover:text-blue-200 transition-colors duration-200">Profile</Link>
-          <Link to="/history" className="hover:text-blue-200 transition-colors duration-200">History</Link>
-          <span onClick={handleLogout} className="cursor-pointer hover:text-red-300 transition-colors duration-200">Logout</span>
+        <nav className="flex items-center space-x-5">
+          <Link to="/history" className="hover:text-gray-300 transition">History</Link>
+          <span onClick={handleLogout} className="cursor-pointer hover:text-red-300 transition">Logout</span>
         </nav>
       </header>
-      <main className="container mx-auto p-6">
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          {children}
-        </div>
+      <main className="mx-auto p-3">
+        {children}
       </main>
     </div>
   );

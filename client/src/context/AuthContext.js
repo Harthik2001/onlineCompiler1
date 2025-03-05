@@ -62,6 +62,7 @@
 
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -69,50 +70,47 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true); // Initial loading is true
 
   useEffect(() => {
-    console.log("AuthContext useEffect RUNNING"); // ADD THIS LOG
+    console.log("AuthContext useEffect RUNNING");
 
     const token = localStorage.getItem('token');
     if (token) {
-      console.log("AuthContext: Token found in localStorage, fetching user..."); // ADD THIS LOG
+      console.log("AuthContext: Token found in localStorage, fetching user...");
       axios
         .get('http://localhost:5000/api/auth/user', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
           console.log('AuthContext Response (Success):', response);
-          setUser(response.data);
-          setLoading(false); // Set loading to false on success
-          console.log("AuthContext: setLoading(false) - Success"); // ADD THIS LOG
+          setUser({ ...response.data, token }); // 🔥 Ensure token is stored
+          setLoading(false);
         })
         .catch((error) => {
           console.error('AuthContext Error:', error);
           setUser(null);
-          setLoading(false); // Set loading to false on error as well
-          console.log("AuthContext: setLoading(false) - Error"); // ADD THIS LOG
+          setLoading(false);
           localStorage.removeItem('token');
         });
     } else {
-      console.log("AuthContext: No token in localStorage."); // ADD THIS LOG
+      console.log("AuthContext: No token in localStorage.");
       setUser(null);
-      setLoading(false); // Set loading to false even if no token
-      console.log("AuthContext: setLoading(false) - No Token"); // ADD THIS LOG
+      setLoading(false);
     }
   }, []);
 
   const login = (userData) => {
-    setUser(userData);
+    setUser({ ...userData, token: userData.token }); // 🔥 Ensure token is stored
     localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('token', userData.token);
   };
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}> {/* Include loading in context value */}
+    <AuthContext.Provider value={{ user, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
